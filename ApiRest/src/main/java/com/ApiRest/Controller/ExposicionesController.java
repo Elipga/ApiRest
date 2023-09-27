@@ -35,11 +35,11 @@ public class ExposicionesController {
 
     @GetMapping("exposiciones/{id}/coches")
     public ResponseEntity<List<Coche>> getCochesExposicion(@PathVariable String id) {
-        for (Exposicion elemento : exposiciones) {
-            if (elemento.getId().equals(id)) {
-                if (elemento.getCochesExpo().isEmpty())
+        for (Exposicion elemento : exposiciones) { //recorre las exposiciones
+            if (elemento.getId().equals(id)) { //encuentra la exposicion
+                if (elemento.getCochesExpo().isEmpty()) //si la lista de coches está vacía: no content
                     return ResponseEntity.noContent().build();
-                return ResponseEntity.ok(elemento.getCochesExpo());
+                return ResponseEntity.ok(elemento.getCochesExpo()); //devuelve la lista de coches de la expo
 
             }
         }
@@ -61,5 +61,19 @@ public class ExposicionesController {
             }
         }
         return ResponseEntity.notFound().build(); //si no encuentra la exposición: not found
+    }
+
+    @GetMapping("/exposiciones/{idExpo}/coches/{idCoche}") //devuelve el coche especifico de la expo especifica
+    public ResponseEntity<Coche> getCocheDeExpo(@PathVariable String idExpo, @PathVariable String idCoche) {
+        for (Exposicion elemento : exposiciones) { //recorre las exposiciones
+            if (elemento.getId().equals(idExpo)) { //encuentra la exposicion
+                for (Coche coche : elemento.getCochesExpo()){ //recorre los coches de la exposición
+                    if(coche.getId().equals(idCoche))
+                        return ResponseEntity.ok(coche);
+                }
+                return ResponseEntity.notFound().build(); //no encuentra el coche: not found
+            }
+        }
+        return ResponseEntity.notFound().build(); //no encuentra la exposición: not found
     }
 }

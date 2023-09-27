@@ -15,7 +15,7 @@ public class CochesController {
     }
 
     @GetMapping("/coches/{id}")
-    public ResponseEntity<Coche> getCoche(@PathVariable String id) {
+    public ResponseEntity<Coche> getCoche(@PathVariable String id) { //id del coche
         for (Coche elemento: coches){
             if(elemento.getId().equals(id))
                 return ResponseEntity.ok(elemento);
@@ -29,7 +29,7 @@ public class CochesController {
             if(elemento.getId().equals(id))
                 return ResponseEntity.ok(elemento.getPropietario());
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build(); //si no encuentra el coche: not found
     }
 
     @PostMapping("/coches")
