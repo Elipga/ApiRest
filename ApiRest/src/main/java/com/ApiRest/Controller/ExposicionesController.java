@@ -1,8 +1,10 @@
 package com.ApiRest.Controller;
+
 import com.ApiRest.Domain.Coche;
 import com.ApiRest.Domain.Exposicion;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,8 +69,8 @@ public class ExposicionesController {
     public ResponseEntity<Coche> getCocheDeExpo(@PathVariable String idExpo, @PathVariable String idCoche) {
         for (Exposicion elemento : exposiciones) { //recorre las exposiciones
             if (elemento.getId().equals(idExpo)) { //encuentra la exposicion
-                for (Coche coche : elemento.getCochesExpo()){ //recorre los coches de la exposición
-                    if(coche.getId().equals(idCoche))
+                for (Coche coche : elemento.getCochesExpo()) { //recorre los coches de la exposición
+                    if (coche.getId().equals(idCoche))
                         return ResponseEntity.ok(coche);
                 }
                 return ResponseEntity.notFound().build(); //no encuentra el coche: not found

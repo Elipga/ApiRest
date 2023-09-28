@@ -9,6 +9,10 @@ import java.util.List;
 public class CochesController {
     private List<Coche> coches = new ArrayList<>();
 
+    public List<Coche> getCoches() {
+        return coches;
+    }
+
     @GetMapping("/coches")
     public List<Coche> listarCoches() {
         return coches;
@@ -41,6 +45,6 @@ public class CochesController {
             return ResponseEntity.badRequest().body("Propietario no puede estar vacío");
         }
         coches.add(c);
-        return ResponseEntity.ok("Coche creado con éxito");
+        return ResponseEntity.ok("");
     }
 }
